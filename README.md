@@ -16,13 +16,13 @@ Engineering the frontend to match the asset ultimately required backend work, bu
 
 The first consideration for building this feature was how the [`client`](#terms) would get the data necessary to display [`GuestMessages`](#terms). Since content on the [`client`](#terms) is rendered by querying a node server to return react components, the exact state for each view of the application needs to be fetched before each page loads. With this in mind, a component architecture becomes clear: use a container component to handle data fetch, populate the state of the application, fetch the necessary state, and pass it as props to presentation components.
 
-### [Click here for more information on building the component architecture.](./component_architecture.md)
+### [Click here for more information on building the component architecture.](./tech_design/component_architecture.md)
 
 After identifying how the application recieves data, the next step was to build the presentation components. Private Porch is a web application and despite it being geared towards desktop users, it will undoubtedly receive a fair amount of mobile traffic. Simply copying the design from [figure 1](#fig-1.-marketinghub) without considering how it would look on smaller screen sizes would be a costly mistake. The majority of the work behind the responsive design would be done on the [`GuestMessage`](#terms) component and resulted in [figure 2](#fig-2.-mobile-guestmessage).
 
-### [Click here for more information on building the presentational components](./presentation_components.md)
+### [Click here for more information on building the presentational components](./tech_design/presentation_components.md)
 
-After designing a responsvie layout for [`GuestMessages`](#terms) the last step to completing this feature would be adding behavior around the "Resend Email" button (see [fig 1](#fig-1.-marketinghub)). Again, no invision assets existed for this functionality. Implementing a modal seemed appropriate [figure 4](#fig-4.-resend).
+After designing a responsive layout for [`GuestMessages`](#terms) the last step to completing this feature would be adding behavior around the "Resend Email" button (see [fig 1](#fig-1.-marketinghub)). Again, no invision assets existed for this functionality. Implementing a modal seemed appropriate [figure 4](#fig-4.-resend).
 
 ### [Click here for more information on building the resend modal](./resend_messages.md)
 
