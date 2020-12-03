@@ -28,13 +28,81 @@ After designing a responsive layout for [`GuestMessages`](#terms) the last step 
 
 ## Hurdles
 
-- Data returned from API was not ideal
-- Dates
+The largest hurdle that was encountered during development was due to a hasty decision to perform business logic on the client. The scenario is as follows:
+
+**GIVEN** a user visits `/marketing`:  
+**WHEN** the client requests all guest messages from the api,  
+**THEN** the api returns all guest messages by user id.
+
+Early on it became apparent that the payload from the API was inefficient for the needs of the project:
+
+**GIVEN** a host sends one email to five guests:  
+**WHEN** the host visits `/marketing`
+**THEN** Five `GuestMessage` components with the same content render.
+
+This unfortunate discovery was the result of how `GuestMessages` were saved to the database. Rather than creating a `users_guestMessages` table on the backend to handle guest messages with more than one recipient - every message sent was stored as a single row in one table. To solve for this issue a function, `reduceMessagesAndCountGuests()` was written:
+
+```javascript
+export function reduceMessagesAndCountGuests(messageList) {
+ return messageList.reduce((messages, message) => {
+  const messageCreationDate = message.createdAt.toString().substring(0,8);
+  if(!messages[messageCreationDate]) {
+   const propertyImage = (message.property.image != null) ? message.property.image.url : false;
+   let msg = {
+    id: messageCreationDate,
+    message: message.message,
+    subject: message.subject,
+    sentAt: message.sentAt,
+    propertyId: message.property.id,
+    propertyPicture: propertyImage,
+    recipients: [],
+   }
+   for(let i = 0; i < messageList.length; i+= 1) {
+   if(message.property.id === messageList[i].property.id && messageCreationDate === messageList[i].createdAt.toString().substring(0,8)) {
+    const recipientData = messageList[i].toUser;
+    const recipient = {
+      id: recipientData.id,
+      name: recipientData.name,
+      email: recipientData.email
+     };
+     msg.recipients.push(recipient);
+   }
+    messages[messageCreationDate] = msg;
+   }
+  }
+  return messages;
+ }, {})
+}
+```
+
+This function takes the JSON payload of all `GuestMessages`, and creates a map with the following shape for each guest message:
+
+```typescript
+type GuestMessage = {
+ [creation_date]: [{
+  id: number;
+  message: string;
+  subject: string;
+  sentAt: number;
+  propertyId: number;
+  propertyPicture: string;
+  recipients: [{
+   id: number;
+   name: string;
+   email: string;
+  }]
+ }]
+}
+```
+> _Figure described with Typescript_
+
+The data structure that is returned contains an array for the recipients, and values for the guest message itself. It is then returned to the `MarketingContainer` and passed to the `MarketingHubLayout` as props to render the Guest Message data.
 
 ## Limitations
 
 - Frontend bloat
 - Does not take advantage of websockets to return data to the client on server actions.
+- Poor developer experience due to frontend containing confusing business logic.
 
 ___
 
@@ -62,6 +130,6 @@ ___
 
 > ![completedview](./assets/completedview.png)
 
-### Fig 4 Resend Modal 
+### Fig 4 Resend Modal
 
 > ![resend](./assets/resend.png)
