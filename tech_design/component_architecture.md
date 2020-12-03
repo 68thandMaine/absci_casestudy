@@ -2,9 +2,7 @@
 
 ## [Return to main page](../README.md)
 
-To display the `MarketingHub` a container component called [`MarketingContainer`](#marketingcontainer.jsx) will be built. This component is built to hold state value for the `GuestMessages`, and displaying a modal. Future development on the `MarketingContainer` that adds additional content to the page will require some sort of state to hold values. The `MarketingContainer1` component is set up uperfectly to continue to accept data and pass it to the children.
-
-The `MarketingContainer` renders the [`MarketingHubLayout`](#marketinghublayout.jsx). This component is purely presentational and holds no stateful logic. It renders the `GuestMessage` component for each `GuestMessage` that it receives.
+The container component for this feature was named the `MarketingContainer`, and is built to hold state for the `GuestMessages` and to display a modal. It was important to design the `MarketingContainer` with uture development in mind. Private Porch is still being built and additional content will be added to the `MarketingHub` page which will require the `MarketingContainer` component to fetch new data, and pass it to additional child components. The `MarketingContainer1` component is set up perfectly to continue to accept data and pass it to the children because it passes values to the [`MarketingHubLayout`](#marketinghublayout.jsx) component. This component is purely presentational and holds no stateful logic, but it can render anything with a few style adjustments. Currently it renders `GuestMessage` components for each `GuestMessage` that it receives.
 
 ___
 
@@ -82,3 +80,5 @@ return (
  )
 }
 ```
+
+As new features are added to the `MarketingHub` the only adjustments that will need to be made are to the returned JSX of the `MarketingHubLayout`.
