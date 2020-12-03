@@ -10,18 +10,17 @@ ___
 
 ## Code Snippets
 
-
-### MarketingContainer.jsx 
+### MarketingContainer.jsx
 
 ```javascript
 return (
 <Fragment>
   <MarketingHubLayout
-	 auth={props.auth}
-	 hasFetched={props.hasFetched}
-	 isFetching={props.isFetching}
-	 messagesToGuests={listOfMessages}
-	 openModal={handleOpenModal}
+  auth={props.auth}
+  hasFetched={props.hasFetched}
+  isFetching={props.isFetching}
+  messagesToGuests={listOfMessages}
+  openModal={handleOpenModal}
   />
  <Modal
    open={open}
@@ -44,42 +43,42 @@ return (
 
 ```javascript
 function MarketingHubLayout(props) {
-	const { classes, messagesToGuests } =  props;
-	function renderGuestMessages(msg) {
-	return (
-		<GuestMessage 
-			key={msg.id}
-			id={msg.id}
-			message={msg.message}
-			subject={msg.subject}
-			dateSent={getFormattedDate(msg.sentAt).date}
-			timeSent={getFormattedDate(msg.sentAt).time}
-			propertyPicture={msg.propertyPicture}
-			recipientCount={msg.recipients.length}
-			previewMessage={props.openModal}
-		/>
-	)
+ const { classes, messagesToGuests } =  props;
+ function renderGuestMessages(msg) {
+ return (
+  <GuestMessage
+   key={msg.id}
+   id={msg.id}
+   message={msg.message}
+   subject={msg.subject}
+   dateSent={getFormattedDate(msg.sentAt).date}
+   timeSent={getFormattedDate(msg.sentAt).time}
+   propertyPicture={msg.propertyPicture}
+   recipientCount={msg.recipients.length}
+   previewMessage={props.openModal}
+  />
+ )
 }
-	
+ 
 return (
-	<div className={classes.marketingHubLayoutContainer}>
-		<div className={classes.marketingHubLayoutContainer__header}>
-			<p className={classes.title}>Messages</p>
-			<MainActionButton className={classes.messageGuestsButton} to={"/message-guests"}>
-				<ChatIcon className={classes.messageGuestButton__icon}/>
-				{"Message Guests"}
-			</MainActionButton>
-		</div>
-		<div className={classes.marketingHubLayoutContainer__messages}>
-			<List>
-				{
-				Object.values(messagesToGuests)
-					.sort((a, b) => b.sentAt - a.sentAt)
-					.map((message) => renderGuestMessages((message)) )
-				}
-			</List>	
-		</div>
-	</div>
-	)
+ <div className={classes.marketingHubLayoutContainer}>
+  <div className={classes.marketingHubLayoutContainer__header}>
+   <p className={classes.title}>Messages</p>
+   <MainActionButton className={classes.messageGuestsButton} to={"/message-guests"}>
+    <ChatIcon className={classes.messageGuestButton__icon}/>
+    {"Message Guests"}
+   </MainActionButton>
+  </div>
+  <div className={classes.marketingHubLayoutContainer__messages}>
+   <List>
+    {
+    Object.values(messagesToGuests)
+     .sort((a, b) => b.sentAt - a.sentAt)
+     .map((message) => renderGuestMessages((message)) )
+    }
+   </List> 
+  </div>
+ </div>
+ )
 }
 ```

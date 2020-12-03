@@ -24,7 +24,7 @@ After identifying how the application recieves data, the next step was to build 
 
 After designing a responsive layout for [`GuestMessages`](#terms) the last step to completing this feature would be adding behavior around the "Resend Email" button (see [fig 1](#fig-1.-marketinghub)). Again, no invision assets existed for this functionality. Implementing a modal seemed appropriate [figure 4](#fig-4.-resend).
 
-### [Click here for more information on building the resend modal](./resend_messages.md)
+### [Click here for more information on building the resend modal](./tech_design/modal.md)
 
 ## Hurdles
 
