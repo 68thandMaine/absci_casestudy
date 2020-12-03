@@ -16,7 +16,7 @@ The first consideration for building this feature was how the [`client`](#terms)
 
 ### [Click here for more information on building the component architecture.](./tech_design/component_architecture.md)
 
-After identifying how the application recieves data, the next step was to build the presentation components. Private Porch is a web application and despite it being geared towards desktop users, it will undoubtedly receive a fair amount of mobile traffic. Simply copying the design from [figure 1](#fig-1.-marketinghub) without considering how it would look on smaller screen sizes would be a costly mistake. The majority of the work behind the responsive design would be done on the [`GuestMessage`](#terms) component and resulted in [figure 2](#fig-2.-mobile-guestmessage).
+After identifying how the application receives data, the next step was to build the presentation components. Private Porch is a web application and despite it being geared towards desktop users, it will undoubtedly receive a fair amount of mobile traffic. Simply copying the design from [figure 1](#fig-1.-marketinghub) without considering how it would look on smaller screen sizes would be a costly mistake. The majority of the work behind the responsive design would be done on the [`GuestMessage`](#terms) component and resulted in [figure 2](#fig-2.-mobile-guestmessage).
 
 ### [Click here for more information on building the presentational components](./tech_design/presentation_components.md)
 
@@ -92,6 +92,7 @@ type GuestMessage = {
  }]
 }
 ```
+
 > _Figure described with Typescript_
 
 The data structure that is returned contains an array for the recipients, and values for the guest message itself. It is then returned to the `MarketingContainer` and passed to the `MarketingHubLayout` as props to render the Guest Message data.
